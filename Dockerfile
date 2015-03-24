@@ -1,6 +1,8 @@
 FROM debian:jessie
 MAINTAINER Rob Hoelz
 
+RUN groupadd -r perl6 && useradd -r -g perl6 perl6
+
 ADD http://rakudo.org/downloads/star/rakudo-star-2015.03.tar.gz /root/
 RUN tar xzf /root/rakudo-star-2015.03.tar.gz -C /root/
 
@@ -14,4 +16,5 @@ WORKDIR /root/rakudo-star-2015.03
 RUN perl Configure.pl --prefix=/usr --gen-moar
 RUN make install
 
+USER perl6
 ENTRYPOINT ["perl6"]
