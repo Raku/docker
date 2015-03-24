@@ -8,8 +8,7 @@ MAINTAINER Rob Hoelz
 
 WORKDIR /root
 
-RUN apt-get update
-RUN apt-get --yes install curl build-essential
+RUN apt-get update && apt-get --yes install build-essential
 
 RUN curl -L http://rakudo.org/downloads/star/rakudo-star-2015.03.tar.gz | tar xzf -
 
