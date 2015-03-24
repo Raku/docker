@@ -1,8 +1,3 @@
-# When releasing:
-#
-#   - Change the URL in the RUN curl... command to the target release
-#   - build as such: docker build -t hoelzro/rakudo-star:$VERSION .
-
 FROM debian:jessie
 MAINTAINER Rob Hoelz
 
