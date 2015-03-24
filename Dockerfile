@@ -6,11 +6,10 @@
 FROM debian:jessie
 MAINTAINER Rob Hoelz
 
-WORKDIR /root
+ADD http://rakudo.org/downloads/star/rakudo-star-2015.03.tar.gz /root/
+RUN tar xzf /root/rakudo-star-2015.03.tar.gz -C /root/
 
 RUN apt-get update && apt-get --yes install build-essential
-
-RUN curl -L http://rakudo.org/downloads/star/rakudo-star-2015.03.tar.gz | tar xzf -
 
 WORKDIR /root/rakudo-star-2015.03
 
