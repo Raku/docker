@@ -14,4 +14,4 @@ WORKDIR /root/rakudo-star-2015.03
 RUN perl Configure.pl --prefix=/usr --gen-moar
 RUN make install
 
-ENTRYPOINT perl6
+CMD ["perl6"]
