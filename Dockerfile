@@ -3,7 +3,7 @@ MAINTAINER Rob Hoelz
 
 RUN groupadd -r perl6 && useradd -r -g perl6 perl6
 
-ENV rakudo_version=2015.03
+ENV rakudo_version=2015.06
 
 RUN buildDeps=' \
         gcc \
