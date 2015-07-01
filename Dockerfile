@@ -13,7 +13,7 @@ RUN buildDeps=' \
     ' \
     && set -x \
     && apt-get update \
-    && apt-get --yes install --no-install-recommends $buildDeps \
+    && apt-get --yes install --no-install-recommends rlwrap $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir /root/rakudo \
     && curl -fsSL http://rakudo.org/downloads/star/rakudo-star-${rakudo_version}.tar.gz -o rakudo.tar.gz \
@@ -26,4 +26,4 @@ RUN buildDeps=' \
     && rm -rf /rakudo.tar.gz /root/rakudo \
     && apt-get purge -y --auto-remove $buildDeps
 
-CMD ["perl6"]
+CMD ["rlwrap", "perl6"]
