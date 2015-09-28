@@ -26,4 +26,4 @@ RUN buildDeps=' \
     && rm -rf /rakudo.tar.gz /root/rakudo \
     && apt-get purge -y --auto-remove $buildDeps
 
-CMD ["bash", "-c", "rlwrap perl6"]
+CMD ["rlwrap", "perl6"]
