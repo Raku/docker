@@ -21,7 +21,7 @@ RUN buildDeps=' \
     && ( \
         cd /root/rakudo \
         && perl Configure.pl --prefix=/usr --gen-moar \
-        && make -j"$(nproc)" install \
+        && make install \
     ) \
     && rm -rf /rakudo.tar.gz /root/rakudo \
     && apt-get purge -y --auto-remove $buildDeps
