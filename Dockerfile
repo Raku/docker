@@ -28,4 +28,4 @@ RUN buildDeps=' \
 
 ENV PATH=$PATH:/usr/share/perl6/site/bin
 
-CMD ["rlwrap", "perl6"]
+CMD ["perl6"]
