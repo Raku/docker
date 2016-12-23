@@ -29,8 +29,11 @@ or run your own files using the container's interpreter
 
 	$ docker run -t -v `pwd`:/home/perl6/app rakudo-star /home/perl6/app/ls.p6
 
-where we mal the local file ls.p6 (in this directory) to the remote
-file using the shared directory /home/perl6/app
+where we map the local file ls.p6 (in this directory) to the remote
+file using the shared directory mountpoint '/home/perl6/app'
+
+You can actually use any internal directory, as long as it
+exists. `/home/perl6/app` is just there as a convenient place to do it.
 
 
 # Contributing/Getting Help
