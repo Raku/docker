@@ -2,7 +2,6 @@ FROM buildpack-deps:jessie-scm
 MAINTAINER Rob Hoelz
 
 RUN groupadd -r perl6 && useradd -r -g perl6 perl6
-WORKDIR /home/perl6
 
 ENV rakudo_version=2017.01
 
@@ -30,7 +29,3 @@ RUN buildDeps=' \
 ENV PATH=$PATH:/usr/share/perl6/site/bin
 
 CMD ["perl6"]
-
-#Mount point
-RUN mkdir /home/perl6/app
-VOLUME /home/perl6/app
