@@ -1,5 +1,7 @@
 # Rakudo Star
 
+[![Build Status](https://travis-ci.org/perl6/docker.svg?branch=master)](https://travis-ci.org/perl6/docker)
+
 This Docker image includes Rakudo Star, an early adopter distribution of the Rakudo Perl 6 compiler, in addition
 to some modules users may find helpful.
 
