@@ -40,6 +40,14 @@ You can also provide perl6 command line switches to `docker run`:
 
     $ docker run -it rakudo-star perl6 -e 'say "Hello!"'
 
+In addition, you can mount a directory from the host within a container:
+
+    $ docker run -it -v $HOME/my_p6_projects/:/mount_location/ rakudo-star /bin/bash
+
+Then, you can run your scripts from inside the container:
+
+    # perl6 /mount_location/my_p6_script.p6
+
 # Contributing/Getting Help
 
 Many Perl 6 developers are present on #perl6 on Freenode.
