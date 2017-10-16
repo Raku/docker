@@ -15,6 +15,19 @@ Perl 6 Language Specification: http://design.perl6.org/
 
 Perl 6 Language Documentation: http://doc.perl6.org/
 
+# Build
+
+You can build an image from this Dockerfile as indicated below:
+
+    $ docker build -t rakudo-star /path_to_dockerfile/
+
+In addition, you can specify the version of Rakudo Star that you want at build time:
+
+    $ docker build --build-arg rakudo_version=${DESIRED_VERSION} -t rakudo-star /path_to_dockerfile/
+
+If no version is specified, it will default to the version listed in the Dockerfile. It is recommended that
+you use the default version.
+
 # Usage
 
 Simply running a container with the image will launch a Perl 6 REPL:
