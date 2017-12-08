@@ -1,5 +1,12 @@
 sudo: enabled
 services:
     - docker
+
+  install:
+  - docker --version
+  - docker build -t rakudo-star .
+  - docker run -d --name rakudo-star rakudo-star
+  
 script:
-    - docker build -t rakudo-star .
+  - docker ps | grep -q rakudo-star
+

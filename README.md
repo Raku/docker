@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/perl6/docker.svg?branch=master)](https://travis-ci.org/perl6/docker)
 
 This Docker image includes Rakudo Star, an early adopter distribution of the Rakudo Perl 6 compiler, in addition
-to some modules users may find helpful.
+to some modules users may find helpful and is based on Debian
+Stretch. 
 
 Project homepage: http://rakudo.org
 
@@ -27,6 +28,11 @@ In addition, you can specify the version of Rakudo Star that you want at build t
 
 If no version is specified, it will default to the version listed in the Dockerfile. It is recommended that
 you use the default version.
+New versions are produced every 3 months, starting on the first month
+of the year from 2016, so versions available include `[2016,2017] X
+[01,04,07,11]`. Prior to that, [you will have to check](http://rakudo.org/downloads/star/)
+
+
 
 # Usage
 
