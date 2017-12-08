@@ -1,7 +1,7 @@
 services:
   - docker
 
- install:
+install:
   - docker --version
   - docker build -t rakudo-star .
   - docker run -d --name rakudo-star rakudo-star
