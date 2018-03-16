@@ -2,18 +2,18 @@
 
 [![Build Status](https://travis-ci.org/perl6/docker.svg?branch=master)](https://travis-ci.org/perl6/docker)
 
-This Docker image includes Rakudo Star, an early adopter distribution of the Rakudo Perl 6 compiler, in addition
-to some modules users may find helpful.
+This Docker image includes Rakudo Star, which is a Perl 6 compiler distribution that includes MoarVM
+virtual machine, Rakudo Perl 6 compiler, a suite of modules that users may find useful, and language documentation.
 
-Project homepage: http://rakudo.org
+Project homepage: https://rakudo.org
 
 GitHub repository: https://github.com/rakudo/star
 
-The Dockerfile responsible: http://github.com/perl6/docker/tree/master/Dockerfile
+The Dockerfile responsible: https://github.com/perl6/docker/tree/master/Dockerfile
 
-Perl 6 Language Specification: http://design.perl6.org/
+Perl 6 Language Specification: https://github.com/perl6/roast
 
-Perl 6 Language Documentation: http://doc.perl6.org/
+Perl 6 Language Documentation: https://docs.perl6.org/
 
 # Build
 
@@ -50,6 +50,6 @@ Then, you can run your scripts from inside the container:
 
 # Contributing/Getting Help
 
-Many Perl 6 developers are present on #perl6 on Freenode.
+Many Perl 6 developers are present on [#perl6 on Freenode](https://webchat.freenode.net/?channels=#perl6)
 
-Issues for Rakudo are tracked in RT: https://rt.perl.org/
+Issues for Rakudo are tracked on https://github.com/rakudo/rakudo/issues
