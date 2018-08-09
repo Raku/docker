@@ -12,13 +12,22 @@ RUN buildDeps=' \
         libencode-perl \
         make \
     ' \
+    url="https://rakudo.org/downloads/star/rakudo-star-${rakudo_version}.tar.gz" \
+    keyserver='hkps.pool.sks-keyservers.net' \
+    keyfp='ECF8B611205B447E091246AF959E3D6197190DD5' \
     tmpdir="$(mktemp -d)" \
     && set -x \
+    && export GNUPGHOME="$tmpdir" \
     && apt-get update \
     && apt-get --yes install --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir ${tmpdir}/rakudo \
-    && curl -fsSL http://rakudo.org/downloads/star/rakudo-star-${rakudo_version}.tar.gz -o ${tmpdir}/rakudo.tar.gz \
+    \
+    && curl -fsSL ${url}.asc -o ${tmpdir}/rakudo.tar.gz.asc \
+    && curl -fsSL $url -o ${tmpdir}/rakudo.tar.gz \
+    && gpg2 --keyserver $keyserver --recv-keys $keyfp \
+    && gpg2 --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
+    \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
     && ( \
         cd ${tmpdir}/rakudo \
