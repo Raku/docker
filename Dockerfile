@@ -13,7 +13,7 @@ RUN buildDeps=' \
         make \
     ' \
     url="https://rakudo.org/downloads/star/rakudo-star-${rakudo_version}.tar.gz" \
-    keyserver='hkps.pool.sks-keyservers.net' \
+    keyserver='ha.pool.sks-keyservers.net' \
     keyfp='ECF8B611205B447E091246AF959E3D6197190DD5' \
     tmpdir="$(mktemp -d)" \
     && set -x \
