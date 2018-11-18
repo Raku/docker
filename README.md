@@ -32,21 +32,17 @@ you use the default version.
 
 Simply running a container with the image will launch a Perl 6 REPL:
 
-    $ docker run -it rakudo-star
+    $ docker run --rm -it rakudo-star
     > say 'Hello, Perl!'
     Hello, Perl!
 
 You can also provide perl6 command line switches to `docker run`:
 
-    $ docker run -it rakudo-star perl6 -e 'say "Hello!"'
+    $ docker run --rm rakudo-star perl6 -e 'say "Hello!"'
 
-In addition, you can mount a directory from the host within a container:
+In addition, you can run a script located in the current folder:
 
-    $ docker run -it -v $HOME/my_p6_projects/:/mount_location/ rakudo-star /bin/bash
-
-Then, you can run your scripts from inside the container:
-
-    # perl6 /mount_location/my_p6_script.p6
+    $ docker run --rm -v "$(pwd):/script" rakudo-star perl6 /script/my_p6_script.p6
 
 # Contributing/Getting Help
 
