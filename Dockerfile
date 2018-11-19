@@ -25,8 +25,8 @@ RUN buildDeps=' \
     \
     && curl -fsSL ${url}.asc -o ${tmpdir}/rakudo.tar.gz.asc \
     && curl -fsSL $url -o ${tmpdir}/rakudo.tar.gz \
-    && gpg --keyserver $keyserver --recv-keys $keyfp \
-    && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
+    && gpg --no-tty --keyserver $keyserver --recv-keys $keyfp \
+    && gpg --no-tty --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
     && ( \
