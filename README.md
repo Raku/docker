@@ -30,13 +30,13 @@ you use the default version.
 
 # Usage
 
-Simply running a container with the image will launch a Perl 6 REPL:
+Running a short-term foreground process with the image will launch a Perl 6 REPL:
 
     $ docker run --rm -it rakudo-star
     > say 'Hello, Perl!'
     Hello, Perl!
 
-You can also provide perl6 command line switches to `docker run`:
+You can also provide perl6 command line switches to a temporary container:
 
     $ docker run --rm rakudo-star perl6 -e 'say "Hello!"'
 
