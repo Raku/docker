@@ -13,20 +13,9 @@ RUN buildDeps=' \
         make \
     ' \
     \
-    keyfp=$( \
-        timestampFromDate() { \
-            date -d $(echo $1 | cut -c1-7 | tr . - | xargs printf '%s-01') '+%s'; \
-        }; \
-        \
-        if [ $(timestampFromDate $rakudo_version) -lt $(timestampFromDate '2019.03') ]; then \
-            echo 'ECF8B611205B447E091246AF959E3D6197190DD5'; \
-        else \
-            echo '7A6C9EB8809CFEAF0ED4E09F18C438E6FF24326D'; \
-        fi \
-    ) \
-    \
     url="https://rakudo.org/downloads/star/rakudo-star-${rakudo_version}.tar.gz" \
     keyserver='ha.pool.sks-keyservers.net' \
+    keyfp='ECF8B611205B447E091246AF959E3D6197190DD5 7A6C9EB8809CFEAF0ED4E09F18C438E6FF24326D' \
     tmpdir="$(mktemp -d)" \
     && set -x \
     && export GNUPGHOME="$tmpdir" \
