@@ -3,7 +3,7 @@ MAINTAINER Rob Hoelz
 
 RUN groupadd -r perl6 && useradd -r -g perl6 perl6
 
-ARG rakudo_version=2018.10
+ARG rakudo_version=2019.03
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
@@ -12,9 +12,10 @@ RUN buildDeps=' \
         libencode-perl \
         make \
     ' \
+    \
     url="https://rakudo.org/downloads/star/rakudo-star-${rakudo_version}.tar.gz" \
     keyserver='ha.pool.sks-keyservers.net' \
-    keyfp='ECF8B611205B447E091246AF959E3D6197190DD5' \
+    keyfp='ECF8B611205B447E091246AF959E3D6197190DD5 7A6C9EB8809CFEAF0ED4E09F18C438E6FF24326D' \
     tmpdir="$(mktemp -d)" \
     && set -x \
     && export GNUPGHOME="$tmpdir" \
