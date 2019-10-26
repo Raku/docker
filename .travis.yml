@@ -4,4 +4,9 @@ services:
 before_script:
     - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
 script:
-    - docker build -t rakudo-star .
+    - docker build -t rakudo-star $DOCKERFILE_LOCATION
+
+env:
+    matrix:
+        - DOCKERFILE_LOCATION='.'
+        - DOCKERFILE_LOCATION='./alpine'
