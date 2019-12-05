@@ -2,8 +2,8 @@
 
 [![Build Status](https://travis-ci.org/perl6/docker.svg?branch=master)](https://travis-ci.org/perl6/docker)
 
-This Docker image includes Rakudo Star, which is a Perl 6 compiler distribution that includes MoarVM
-virtual machine, Rakudo Perl 6 compiler, a suite of modules that users may find useful, and language documentation.
+This Docker image includes Rakudo Star, which is a Raku compiler distribution that includes MoarVM
+virtual machine, Rakudo compiler, a suite of modules that users may find useful, and language documentation.
 
 Project homepage: https://rakudo.org
 
@@ -11,9 +11,9 @@ GitHub repository: https://github.com/rakudo/star
 
 The Dockerfile responsible: https://github.com/perl6/docker/tree/master/Dockerfile
 
-Perl 6 Language Specification: https://github.com/perl6/roast
+Raku Language Specification: https://github.com/perl6/roast
 
-Perl 6 Language Documentation: https://docs.perl6.org/
+Raku Language Documentation: https://docs.raku.org/
 
 # Build
 
@@ -30,22 +30,22 @@ you use the default version.
 
 # Usage
 
-Running a short-term foreground process with the image will launch a Perl 6 REPL:
+Running a short-term foreground process with the image will launch a Raku REPL:
 
     $ docker run --rm -it rakudo-star
     > say 'Hello, Perl!'
     Hello, Perl!
 
-You can also provide perl6 command line switches to a temporary container:
+You can also provide raku command line switches to a temporary container:
 
-    $ docker run --rm rakudo-star perl6 -e 'say "Hello!"'
+    $ docker run --rm rakudo-star raku -e 'say "Hello!"'
 
 In addition, you can run a script located in the current folder:
 
-    $ docker run --rm -v "$(pwd):/script" rakudo-star perl6 /script/my_p6_script.p6
+    $ docker run --rm -v "$(pwd):/script" rakudo-star raku /script/my_p6_script.raku
 
 # Contributing/Getting Help
 
-Many Perl 6 developers are present on [#perl6 on Freenode](https://webchat.freenode.net/?channels=#perl6)
+Many Raku developers are present on [#raku on Freenode](https://webchat.freenode.net/#raku)
 
 Issues for Rakudo are tracked on https://github.com/rakudo/rakudo/issues
