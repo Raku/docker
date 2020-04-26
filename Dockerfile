@@ -1,4 +1,4 @@
-FROM buildpack-deps:stretch-scm
+FROM buildpack-deps:buster-scm
 MAINTAINER Rob Hoelz
 
 RUN groupadd -r perl6 && useradd -r -g perl6 perl6
