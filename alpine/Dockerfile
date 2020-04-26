@@ -2,7 +2,7 @@ FROM alpine:3.10
 
 RUN addgroup -S perl6 && adduser -S perl6 -G perl6
 
-ARG rakudo_version=2019.03
+ARG rakudo_version=2020.01
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
@@ -14,9 +14,9 @@ RUN buildDeps=' \
         make \
     ' \
     \
-    url="https://rakudostar.com/files/star/rakudo-star-${rakudo_version}.tar.gz" \
+    url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
     keyserver='ha.pool.sks-keyservers.net' \
-    keyfp='ECF8B611205B447E091246AF959E3D6197190DD5 7A6C9EB8809CFEAF0ED4E09F18C438E6FF24326D' \
+    keyfp='ECF8B611205B447E091246AF959E3D6197190DD5 7A6C9EB8809CFEAF0ED4E09F18C438E6FF24326D B6F697742EFCAF5F23CE51D5031D65902E840821' \
     tmpdir="$(mktemp -d)" \
     && set -x \
     && export GNUPGHOME="$tmpdir" \
