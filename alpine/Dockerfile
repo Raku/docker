@@ -1,6 +1,6 @@
 FROM alpine:3.10
 
-RUN addgroup -S perl6 && adduser -S perl6 -G perl6
+RUN addgroup -S raku && adduser -S raku -G raku
 
 ARG rakudo_version=2020.01
 ENV rakudo_version=${rakudo_version}
@@ -39,4 +39,4 @@ RUN buildDeps=' \
 
 ENV PATH=$PATH:/usr/share/perl6/site/bin
 
-CMD ["perl6"]
+CMD ["raku"]
