@@ -1,7 +1,7 @@
 FROM buildpack-deps:buster-scm
 MAINTAINER Rob Hoelz
 
-RUN groupadd -r perl6 && useradd -r -g perl6 perl6
+RUN groupadd -r raku && useradd -r -g raku raku
 
 ARG rakudo_version=2020.01
 ENV rakudo_version=${rakudo_version}
@@ -40,4 +40,4 @@ RUN buildDeps=' \
 
 ENV PATH=$PATH:/usr/share/perl6/site/bin
 
-CMD ["perl6"]
+CMD ["raku"]
