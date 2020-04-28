@@ -1,6 +1,6 @@
 # Rakudo Star
 
-[![Build Status](https://travis-ci.org/perl6/docker.svg?branch=master)](https://travis-ci.org/perl6/docker)
+[![Build Status](https://travis-ci.org/raku/docker.svg?branch=master)](https://travis-ci.org/perl6/docker)
 
 This Docker image includes Rakudo Star, which is a Raku compiler distribution that includes MoarVM
 virtual machine, Rakudo compiler, a suite of modules that users may find useful, and language documentation.
@@ -9,9 +9,9 @@ Project homepage: https://rakudo.org
 
 GitHub repository: https://github.com/rakudo/star
 
-The Dockerfile responsible: https://github.com/perl6/docker/tree/master/Dockerfile
+The Dockerfile responsible: https://github.com/raku/docker/tree/master/Dockerfile
 
-Raku Language Specification: https://github.com/perl6/roast
+Raku Language Specification: https://github.com/raku/roast
 
 Raku Language Documentation: https://docs.raku.org/
 
