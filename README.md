@@ -1,6 +1,6 @@
 # Rakudo Star
 
-[![Build Status](https://travis-ci.org/raku/docker.svg?branch=master)](https://travis-ci.org/perl6/docker)
+[![Build Status](https://travis-ci.org/raku/docker.svg?branch=master)](https://travis-ci.org/Raku/docker)
 
 This Docker image includes Rakudo Star, which is a Raku compiler distribution that includes MoarVM
 virtual machine, Rakudo compiler, a suite of modules that users may find useful, and language documentation.
@@ -33,8 +33,8 @@ you use the default version.
 Running a short-term foreground process with the image will launch a Raku REPL:
 
     $ docker run --rm -it rakudo-star
-    > say 'Hello, Perl!'
-    Hello, Perl!
+    > say 'Hello, Raku!'
+    Hello, Raku!
 
 You can also provide raku command line switches to a temporary container:
 
@@ -42,7 +42,7 @@ You can also provide raku command line switches to a temporary container:
 
 In addition, you can run a script located in the current folder:
 
-    $ docker run --rm -v "$(pwd):/script" rakudo-star raku /script/my_p6_script.raku
+    $ docker run --rm -v "$(pwd):/script" rakudo-star raku /script/my_raku_script.raku
 
 # Contributing/Getting Help
 
