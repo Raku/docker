@@ -42,7 +42,7 @@ You can also provide raku command line switches to a temporary container:
 
 In addition, you can run a script located in the current folder:
 
-    $ docker run --rm -v "$(pwd):/script" rakudo-star raku /script/my_p6_script.raku
+    $ docker run --rm -v "$(pwd):/script" rakudo-star raku /script/my_raku_script.raku
 
 # Contributing/Getting Help
 
