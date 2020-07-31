@@ -33,8 +33,8 @@ you use the default version.
 Running a short-term foreground process with the image will launch a Raku REPL:
 
     $ docker run --rm -it rakudo-star
-    > say 'Hello, Perl!'
-    Hello, Perl!
+    > say 'Hello, Raku!'
+    Hello, Raku!
 
 You can also provide raku command line switches to a temporary container:
 
