@@ -7,12 +7,12 @@ ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
         bash \
-        gnupg \
-        perl \
-        perl-encode \
         gcc \
+        gnupg \
         libc-dev \
         make \
+        perl \
+        perl-encode \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
