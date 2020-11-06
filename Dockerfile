@@ -15,7 +15,7 @@ RUN buildDeps=' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
     keyserver='ha.pool.sks-keyservers.net' \
-    keyfp='ECF8B611205B447E091246AF959E3D6197190DD5 7A6C9EB8809CFEAF0ED4E09F18C438E6FF24326D B6F697742EFCAF5F23CE51D5031D65902E840821' \
+    keyfp='B6F697742EFCAF5F23CE51D5031D65902E840821' \
     tmpdir="$(mktemp -d)" \
     && set -x \
     && export GNUPGHOME="$tmpdir" \
