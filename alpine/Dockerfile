@@ -2,10 +2,11 @@ FROM alpine:3.12
 
 RUN addgroup -S raku && adduser -S raku -G raku
 
-ARG rakudo_version=2020.01
+ARG rakudo_version=2020.10
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
+        bash \
         gnupg \
         perl \
         perl-encode \
@@ -31,8 +32,7 @@ RUN buildDeps=' \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
     && ( \
         cd ${tmpdir}/rakudo \
-        && perl Configure.pl --prefix=/usr --gen-moar \
-        && make install \
+        && bash bin/rstar install -p /usr \
     ) \
     && rm -rf $tmpdir \
     && apk del .build-deps
