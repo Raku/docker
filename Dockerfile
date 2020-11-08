@@ -9,7 +9,6 @@ ENV rakudo_version=${rakudo_version}
 RUN buildDeps=' \
         gcc \
         libc6-dev \
-        libencode-perl \
         make \
     ' \
     \

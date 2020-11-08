@@ -12,7 +12,6 @@ RUN buildDeps=' \
         libc-dev \
         make \
         perl \
-        perl-encode \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
