@@ -4,9 +4,8 @@ services:
 before_script:
     - wget -qO- 'https://github.com/tianon/pgp-happy-eyeballs/raw/master/hack-my-builds.sh' | bash
 script:
-    - docker build -t rakudo-star $DOCKERFILE_LOCATION
+    - docker build -t rakudo-star ./$VERSION/$VARIANT
 
 env:
-    matrix:
-        - DOCKERFILE_LOCATION='.'
-        - DOCKERFILE_LOCATION='./alpine'
+    - VERSION='2020.10' VARIANT='buster'
+    - VERSION='2020.10' VARIANT='alpine3.12'
