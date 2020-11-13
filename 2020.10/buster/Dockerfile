@@ -19,7 +19,7 @@ RUN buildDeps=' \
     && set -x \
     && export GNUPGHOME="$tmpdir" \
     && apt-get update \
-    && apt-get --yes install --no-install-recommends $buildDeps \
+    && apt-get install -y --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir ${tmpdir}/rakudo \
     \

@@ -34,7 +34,7 @@ RUN buildDeps=' \
         && bash bin/rstar install -p /usr \
     ) \
     && rm -rf $tmpdir \
-    && apk del .build-deps
+    && apk del --no-network .build-deps
 
 ENV PATH=$PATH:/usr/share/perl6/site/bin
 
