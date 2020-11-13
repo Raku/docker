@@ -18,7 +18,7 @@ RUN buildDeps=' \
     keyserver='ha.pool.sks-keyservers.net' \
     keyfp='B6F697742EFCAF5F23CE51D5031D65902E840821' \
     tmpdir="$(mktemp -d)" \
-    && set -x \
+    && set -eux \
     && export GNUPGHOME="$tmpdir" \
     && apk add --no-cache --virtual .build-deps $buildDeps \
     && mkdir ${tmpdir}/rakudo \
