@@ -36,6 +36,6 @@ RUN buildDeps=' \
     && rm -rf $tmpdir \
     && apt-get purge -y --auto-remove $buildDeps
 
-ENV PATH=$PATH:/usr/share/perl6/site/bin
+ENV PATH=$PATH:/usr/share/perl6/core/bin:/usr/share/perl6/site/bin:/usr/share/perl6/vendor/bin
 
 CMD ["raku"]
