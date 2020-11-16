@@ -44,6 +44,12 @@ In addition, you can run a script located in the current folder:
 
     $ docker run --rm -v "$(pwd):/script" rakudo-star raku /script/my_raku_script.raku
 
+# Updating Docker Hub Image
+
+`rakudo-star` is an Official Image on Docker Hub.
+To update the `rakudo-star` image, make the necessary changes to
+[library/rakudo-star](https://github.com/docker-library/official-images/blob/master/library/rakudo-star).
+
 # Contributing/Getting Help
 
 Many Raku developers are present on [#raku on Freenode](https://webchat.freenode.net/#raku)
