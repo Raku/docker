@@ -8,4 +8,4 @@ script:
 
 env:
     - VERSION='2020.10' VARIANT='buster'
-    - VERSION='2020.10' VARIANT='alpine3.12'
+    - VERSION='2020.10' VARIANT='alpine3.13'
