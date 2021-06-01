@@ -52,6 +52,6 @@ To update the `rakudo-star` image, make the necessary changes to
 
 # Contributing/Getting Help
 
-Many Raku developers are present on [#raku on Freenode](https://webchat.freenode.net/#raku)
+Many Raku developers are present on [#raku on Libera.Chat](https://kiwiirc.com/client/irc.libera.chat/#raku)
 
 Issues for Rakudo are tracked on https://github.com/rakudo/rakudo/issues
