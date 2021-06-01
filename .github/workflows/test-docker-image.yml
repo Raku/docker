@@ -48,8 +48,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
-      run: docker build . --file $VERSION/$VARIANT/Dockerfile --tag $GITHUB_REPOSITORY:$GITHUB_SHA
+      run: docker build . --file $VERSION/$VARIANT/Dockerfile --tag ${GITHUB_REPOSITORY,,}:$GITHUB_SHA
     - name: Test docker image with root
-      run: docker run --rm $GITHUB_REPOSITORY:$GITHUB_SHA zef list --installed && docker run --rm $GITHUB_REPOSITORY:$GITHUB_SHA raku -e 'say $*VM.version'
+      run: docker run --rm ${GITHUB_REPOSITORY,,}:$GITHUB_SHA zef list --installed && docker run --rm ${GITHUB_REPOSITORY,,}:$GITHUB_SHA raku -e 'say $*VM.version'
     - name: Test docker image with raku
-      run: docker run --rm --user raku $GITHUB_REPOSITORY:$GITHUB_SHA zef list --installed && docker run --rm --user raku $GITHUB_REPOSITORY:$GITHUB_SHA raku -e 'say $*VM.version'
+      run: docker run --rm --user raku ${GITHUB_REPOSITORY,,}:$GITHUB_SHA zef list --installed && docker run --rm --user raku ${GITHUB_REPOSITORY,,}:$GITHUB_SHA raku -e 'say $*VM.version'
