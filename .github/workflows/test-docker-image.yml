@@ -1,0 +1,55 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      version: ${{ steps.set-version.outputs.version }}
+    steps:
+    - uses: actions/checkout@v2
+    - id: set-version
+      run: |
+        RAKU_VERSION=$(ls |egrep '^[0-9]{4}.[0-9]{2}$')
+        echo "::set-output name=version::$RAKU_VERSION"
+        echo "raku version: $RAKU_VERSION"
+    - id: set-matrix
+      run: |
+        VERSION=$(ls |egrep '^[0-9]{4}.[0-9]{2}$')
+        cd $VERSION
+        LIST_DIR=$(find . -type d|perl -e '
+          while(<>){
+            $_=~s/.\///g;
+            chomp($_);
+            if($_ ne "."){
+              push(@arr,"\"$_\"")
+            }
+          }
+          print join(",",@arr)
+          ')
+        echo "::set-output name=matrix::[$LIST_DIR]"
+        echo "base image list: [$LIST_DIR]"
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        image_base: ${{fromJson(needs.setup.outputs.matrix)}}
+    env: 
+      VERSION: ${{needs.setup.outputs.version}}
+      VARIANT: ${{ matrix.image_base }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file $VERSION/$VARIANT/Dockerfile --tag $GITHUB_REPOSITORY:$GITHUB_SHA
+    - name: Test docker image with root
+      run: docker run --rm $GITHUB_REPOSITORY:$GITHUB_SHA zef list --installed && docker run --rm $GITHUB_REPOSITORY:$GITHUB_SHA raku -e 'say $*VM.version'
+    - name: Test docker image with raku
+      run: docker run --rm --user raku $GITHUB_REPOSITORY:$GITHUB_SHA zef list --installed && docker run --rm --user raku $GITHUB_REPOSITORY:$GITHUB_SHA raku -e 'say $*VM.version'
