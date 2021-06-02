@@ -1,17 +1,15 @@
-FROM alpine:3.13
+FROM buildpack-deps:buster-scm
+MAINTAINER Rob Hoelz
 
-RUN addgroup -S raku && adduser -S raku -G raku
+RUN groupadd -r raku && useradd -m -r -g raku raku
 
-ARG rakudo_version=2020.10
+ARG rakudo_version=2021.04
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
-        bash \
         gcc \
-        gnupg \
-        libc-dev \
+        libc6-dev \
         make \
-        perl \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
@@ -20,11 +18,13 @@ RUN buildDeps=' \
     tmpdir="$(mktemp -d)" \
     && set -eux \
     && export GNUPGHOME="$tmpdir" \
-    && apk add --no-cache --virtual .build-deps $buildDeps \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends $buildDeps \
+    && rm -rf /var/lib/apt/lists/* \
     && mkdir ${tmpdir}/rakudo \
     \
-    && wget ${url}.asc -O ${tmpdir}/rakudo.tar.gz.asc \
-    && wget $url -O ${tmpdir}/rakudo.tar.gz \
+    && curl -fsSL ${url}.asc -o ${tmpdir}/rakudo.tar.gz.asc \
+    && curl -fsSL $url -o ${tmpdir}/rakudo.tar.gz \
     && gpg --batch --keyserver $keyserver --recv-keys $keyfp \
     && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
@@ -34,7 +34,7 @@ RUN buildDeps=' \
         && bash bin/rstar install -p /usr \
     ) \
     && rm -rf $tmpdir \
-    && apk del --no-network .build-deps
+    && apt-get purge -y --auto-remove $buildDeps
 
 ENV PATH=$PATH:/usr/share/perl6/core/bin:/usr/share/perl6/site/bin:/usr/share/perl6/vendor/bin
 
