@@ -13,20 +13,16 @@ RUN buildDeps=' \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
-    keyserver='ha.pool.sks-keyservers.net' \
-    keyfp='B6F697742EFCAF5F23CE51D5031D65902E840821' \
+    sha256='bb658a67b792c355bbfad71e3d486b6c18bbfa108260c53bf351d8c40a1ad42a' \
     tmpdir="$(mktemp -d)" \
     && set -eux \
-    && export GNUPGHOME="$tmpdir" \
     && apt-get update \
     && apt-get install -y --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir ${tmpdir}/rakudo \
     \
-    && curl -fsSL ${url}.asc -o ${tmpdir}/rakudo.tar.gz.asc \
     && curl -fsSL $url -o ${tmpdir}/rakudo.tar.gz \
-    && gpg --batch --keyserver $keyserver --recv-keys $keyfp \
-    && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
+    && echo $sha256 ${tmpdir}/rakudo.tar.gz | sha256sum -c - \
     \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
     && ( \
