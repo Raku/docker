@@ -7,5 +7,5 @@ script:
     - docker build -t rakudo-star ./$VERSION/$VARIANT
 
 env:
-    - VERSION='2022.02' VARIANT='buster'
-    - VERSION='2022.02' VARIANT='alpine3.13'
+    - VERSION='2022.02' VARIANT='bullseye'
+    - VERSION='2022.02' VARIANT='alpine3.15'
