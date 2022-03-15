@@ -14,7 +14,7 @@ RUN set -eux; \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
-    keyserver='ha.pool.sks-keyservers.net' \
+    keyserver='keyserver.ubuntu.com' \
     keyfp='B6F697742EFCAF5F23CE51D5031D65902E840821' \
     tmpdir="$(mktemp -d)"; \
     export GNUPGHOME="$tmpdir"; \
