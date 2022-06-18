@@ -9,3 +9,5 @@ script:
 env:
     - VERSION='2021.04' VARIANT='buster'
     - VERSION='2021.04' VARIANT='alpine3.13'
+    - VERSION='2022.04' VARIANT='alpine3.13'
+    - VERSION='2022.04' VARIANT='alpine3.16'
