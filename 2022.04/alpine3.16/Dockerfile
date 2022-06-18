@@ -57,6 +57,11 @@ WORKDIR /
 RUN set -ex; rm -rf ${tmpdir}
 RUN apk del --no-network .build-deps
 
+ENV rakudo_raw_filename=
+ENV file_url=
+ENV checksum_url=
+ENV tmpdir=
+
 # Run
 ENV PATH $PATH:/usr/share/perl6/core/bin:/usr/share/perl6/site/bin:/usr/share/perl6/vendor/bin
 CMD ["raku"]
