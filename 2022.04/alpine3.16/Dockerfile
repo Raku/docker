@@ -61,6 +61,9 @@ ENV rakudo_raw_filename=
 ENV file_url=
 ENV checksum_url=
 ENV tmpdir=
+ENV buildDeps=
+ENV keyserver=
+ENV keyfp=
 
 # Run
 ENV PATH $PATH:/usr/share/perl6/core/bin:/usr/share/perl6/site/bin:/usr/share/perl6/vendor/bin
