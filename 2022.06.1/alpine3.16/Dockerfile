@@ -1,8 +1,8 @@
-FROM alpine:3.13
+FROM alpine:3.16
 
 RUN addgroup -S raku && adduser -S raku -G raku
 
-ARG rakudo_version=2021.04
+ARG rakudo_version=2022.06.1-01
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
@@ -15,8 +15,8 @@ RUN buildDeps=' \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
-    keyserver='ha.pool.sks-keyservers.net' \
-    keyfp='B6F697742EFCAF5F23CE51D5031D65902E840821' \
+    pubkeyurl="https://rakudo.org/keys/rakudo_github_automation-3E7E3C6EAF916676AC549285A2919382E961E2EE.asc" \
+
     tmpdir="$(mktemp -d)" \
     && set -eux \
     && export GNUPGHOME="$tmpdir" \
@@ -25,7 +25,8 @@ RUN buildDeps=' \
     \
     && wget ${url}.asc -O ${tmpdir}/rakudo.tar.gz.asc \
     && wget $url -O ${tmpdir}/rakudo.tar.gz \
-    && gpg --batch --keyserver $keyserver --recv-keys $keyfp \
+    && wget $pubkeyurl -O ${tmpdir}/rakudo.pub.asc \
+    && gpg --import ${tmpdir}/rakudo.pub.asc \
     && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
