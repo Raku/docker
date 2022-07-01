@@ -15,8 +15,8 @@ RUN buildDeps=' \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
-    pubkeyurl="https://rakudo.org/keys/rakudo_github_automation-3E7E3C6EAF916676AC549285A2919382E961E2EE.asc" \
-
+    keyfp="3E7E3C6EAF916676AC549285A2919382E961E2EE" \
+    pubkeyurl="https://rakudo.org/keys/rakudo_github_automation-${keyfp}.asc" \
     tmpdir="$(mktemp -d)" \
     && set -eux \
     && export GNUPGHOME="$tmpdir" \
@@ -25,8 +25,9 @@ RUN buildDeps=' \
     \
     && wget ${url}.asc -O ${tmpdir}/rakudo.tar.gz.asc \
     && wget $url -O ${tmpdir}/rakudo.tar.gz \
-    && wget $pubkeyurl -O ${tmpdir}/rakudo.pub.asc \
-    && gpg --import ${tmpdir}/rakudo.pub.asc \
+    && wget $pubkeyurl -O ${tmpdir}/${keyfp}.asc \
+    && gpg --import ${tmpdir}/${keyfp}.asc \
+    && gpg --check-signatures $keyfp \
     && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
