@@ -18,6 +18,7 @@ RUN buildDeps=' \
     tmpdir="$(mktemp -d)" \
     && set -eux \
     && export GNUPGHOME="$tmpdir/gnupg" \
+    && mkdir $GNUPGHOME \
     && apt-get update \
     && apt-get install -y --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \

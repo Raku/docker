@@ -20,6 +20,7 @@ RUN buildDeps=' \
     tmpdir="$(mktemp -d)" \
     && set -eux \
     && export GNUPGHOME="${tmpdir}/gnupg" \
+    && mkdir $GNUPGHOME \
     && apk add --no-cache --virtual .build-deps $buildDeps \
     && mkdir ${tmpdir}/rakudo \
     \
