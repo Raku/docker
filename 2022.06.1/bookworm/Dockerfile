@@ -17,7 +17,7 @@ RUN buildDeps=' \
     pubkeyurl="https://rakudo.org/keys/rakudo_github_automation-${keyfp}.asc" \
     tmpdir="$(mktemp -d)" \
     && set -eux \
-    && export GNUPGHOME="$tmpdir" \
+    && export GNUPGHOME="$tmpdir/gnupg" \
     && apt-get update \
     && apt-get install -y --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
@@ -25,9 +25,12 @@ RUN buildDeps=' \
     \
     && curl -fsSL ${url}.asc -o ${tmpdir}/rakudo.tar.gz.asc \
     && curl -fsSL $url -o ${tmpdir}/rakudo.tar.gz \
-    && curl -fsSL $pubkeyurl -o ${tmpdir}/${keyfp}.asc \
+    && curl -fsSL $pubkeyurl -o ${tmpdir}/key.asc \
+    \
+    && gpg --import ${tmpdir}/key.asc \
+    && gpg --export $keyfp > ${tmpdir}/${keyfp}.asc \
+    && rm -rf $GNUPGHOME \
     && gpg --import ${tmpdir}/${keyfp}.asc \
-    && gpg --check-signatures $keyfp \
     && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \

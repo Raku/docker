@@ -19,15 +19,18 @@ RUN buildDeps=' \
     pubkeyurl="https://rakudo.org/keys/rakudo_github_automation-${keyfp}.asc" \
     tmpdir="$(mktemp -d)" \
     && set -eux \
-    && export GNUPGHOME="$tmpdir" \
+    && export GNUPGHOME="${tmpdir}/gnupg" \
     && apk add --no-cache --virtual .build-deps $buildDeps \
     && mkdir ${tmpdir}/rakudo \
     \
     && wget ${url}.asc -O ${tmpdir}/rakudo.tar.gz.asc \
     && wget $url -O ${tmpdir}/rakudo.tar.gz \
-    && wget $pubkeyurl -O ${tmpdir}/${keyfp}.asc \
+    && wget $pubkeyurl -O ${tmpdir}/key.asc \
+    \
+    && gpg --import ${tmpdir}/key.asc \
+    && gpg --export $keyfp > ${tmpdir}/${keyfp}.asc \
+    && rm -rf $GNUPGHOME \
     && gpg --import ${tmpdir}/${keyfp}.asc \
-    && gpg --check-signatures $keyfp \
     && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
