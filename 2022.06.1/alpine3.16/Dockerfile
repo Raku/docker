@@ -31,6 +31,7 @@ RUN buildDeps=' \
     && gpg --import ${tmpdir}/key.asc \
     && gpg --export $keyfp > ${tmpdir}/${keyfp}.asc \
     && rm -rf $GNUPGHOME \
+    && mkdir $GNUPGHOME \
     && gpg --import ${tmpdir}/${keyfp}.asc \
     && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
