@@ -1,4 +1,4 @@
-FROM buildpack-deps:bookworm-scm
+FROM buildpack-deps:bullseye-scm
 MAINTAINER Rob Hoelz
 
 RUN groupadd -r raku && useradd -m -r -g raku raku
