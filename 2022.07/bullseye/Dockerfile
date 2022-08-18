@@ -1,9 +1,9 @@
-FROM buildpack-deps:buster-scm
+FROM buildpack-deps:bullseye-scm
 MAINTAINER Rob Hoelz
 
 RUN groupadd -r raku && useradd -m -r -g raku raku
 
-ARG rakudo_version=2021.04
+ARG rakudo_version=2022.07-01
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
@@ -13,11 +13,12 @@ RUN buildDeps=' \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
-    keyserver='ha.pool.sks-keyservers.net' \
-    keyfp='B6F697742EFCAF5F23CE51D5031D65902E840821' \
+    keyfp="3E7E3C6EAF916676AC549285A2919382E961E2EE" \
+    pubkeyurl="https://rakudo.org/keys/rakudo_github_automation-${keyfp}.asc" \
     tmpdir="$(mktemp -d)" \
     && set -eux \
-    && export GNUPGHOME="$tmpdir" \
+    && export GNUPGHOME="$tmpdir/gnupg" \
+    && mkdir $GNUPGHOME \
     && apt-get update \
     && apt-get install -y --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
@@ -25,7 +26,13 @@ RUN buildDeps=' \
     \
     && curl -fsSL ${url}.asc -o ${tmpdir}/rakudo.tar.gz.asc \
     && curl -fsSL $url -o ${tmpdir}/rakudo.tar.gz \
-    && gpg --batch --keyserver $keyserver --recv-keys $keyfp \
+    && curl -fsSL $pubkeyurl -o ${tmpdir}/key.asc \
+    \
+    && gpg --import ${tmpdir}/key.asc \
+    && gpg --export $keyfp > ${tmpdir}/${keyfp}.asc \
+    && rm -rf $GNUPGHOME \
+    && mkdir $GNUPGHOME \
+    && gpg --import ${tmpdir}/${keyfp}.asc \
     && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
