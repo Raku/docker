@@ -1,8 +1,8 @@
-FROM alpine:3.16
+FROM alpine:3.17
 
 RUN addgroup -S raku && adduser -S raku -G raku
 
-ARG rakudo_version=2022.07-01
+ARG rakudo_version=2022.12-01
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
@@ -22,17 +22,18 @@ RUN buildDeps=' \
     && export GNUPGHOME="${tmpdir}/gnupg" \
     && mkdir $GNUPGHOME \
     && apk add --no-cache --virtual .build-deps $buildDeps \
+    && apk add --no-cache readline \
     && mkdir ${tmpdir}/rakudo \
     \
     && wget ${url}.asc -O ${tmpdir}/rakudo.tar.gz.asc \
     && wget $url -O ${tmpdir}/rakudo.tar.gz \
     && wget $pubkeyurl -O ${tmpdir}/key.asc \
     \
-    && gpg --import ${tmpdir}/key.asc \
-    && gpg --export $keyfp > ${tmpdir}/${keyfp}.asc \
+    && gpg --batch --import ${tmpdir}/key.asc \
+    && gpg --batch --export $keyfp > ${tmpdir}/${keyfp}.asc \
     && rm -rf $GNUPGHOME \
     && mkdir $GNUPGHOME \
-    && gpg --import ${tmpdir}/${keyfp}.asc \
+    && gpg --batch --import ${tmpdir}/${keyfp}.asc \
     && gpg --batch --verify ${tmpdir}/rakudo.tar.gz.asc ${tmpdir}/rakudo.tar.gz \
     \
     && tar xzf ${tmpdir}/rakudo.tar.gz --strip-components=1 -C ${tmpdir}/rakudo \
