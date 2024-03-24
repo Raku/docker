@@ -1,8 +1,8 @@
-FROM alpine:3.18
+FROM alpine:3.19
 
 RUN addgroup -S raku && adduser -S raku -G raku
 
-ARG rakudo_version=2023.08-01
+ARG rakudo_version=2024.02-01
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
