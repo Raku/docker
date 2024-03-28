@@ -1,7 +1,5 @@
 # Rakudo Star
 
-[![Build Status](https://app.travis-ci.com/Raku/docker.svg?branch=master)](https://app.travis-ci.com/Raku/docker)
-
 This Docker image includes Rakudo Star, which is a Raku compiler distribution that includes MoarVM
 virtual machine, Rakudo compiler, a suite of modules that users may find useful, and language documentation.
 
