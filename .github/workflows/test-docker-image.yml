@@ -14,17 +14,17 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
       version: ${{ steps.set-version.outputs.version }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v2
     - id: set-version
       run: |
-        RAKU_VERSION=$(ls -A -d */ | egrep '^[0-9]{4}.[0-9]{2}$')
+        RAKU_VERSION=$(ls |egrep '^[0-9]{4}.[0-9]{2}$')
         echo "::set-output name=version::$RAKU_VERSION"
         echo "raku version: $RAKU_VERSION"
     - id: set-matrix
       run: |
-        VERSION=$(ls -A -d */ | egrep '^[0-9]{4}.[0-9]{2}$')
+        VERSION=$(ls |egrep '^[0-9]{4}.[0-9]{2}$')
         cd $VERSION
-        LIST_DIR=$(find . -type d | perl -e '
+        LIST_DIR=$(find . -type d|perl -e '
           while(<>){
             $_=~s/.\///g;
             chomp($_);
@@ -46,7 +46,7 @@ jobs:
       VERSION: ${{needs.setup.outputs.version}}
       VARIANT: ${{ matrix.image_base }}
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file $VERSION/$VARIANT/Dockerfile --tag ${GITHUB_REPOSITORY,,}:$GITHUB_SHA
     - name: Test docker image with root
