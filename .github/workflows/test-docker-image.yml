@@ -17,12 +17,12 @@ jobs:
     - uses: actions/checkout@v4
     - id: set-version
       run: |
-        RAKU_VERSION=$(ls -A -d */ | egrep '^[0-9]{4}.[0-9]{2}$')
+        RAKU_VERSION=$(ls -A -d * | egrep '^[0-9]{4}.[0-9]{2}$')
         echo "::set-output name=version::$RAKU_VERSION"
         echo "raku version: $RAKU_VERSION"
     - id: set-matrix
       run: |
-        VERSION=$(ls -A -d */ | egrep '^[0-9]{4}.[0-9]{2}$')
+        VERSION=$(ls -A -d * | egrep '^[0-9]{4}.[0-9]{2}$')
         cd $VERSION
         LIST_DIR=$(find . -type d | perl -e '
           while(<>){
