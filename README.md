@@ -1,5 +1,7 @@
 # Rakudo Star
 
+[![Docker Image CI](https://github.com/Raku/docker/actions/workflows/test-docker-image.yml/badge.svg?branch=master)](https://github.com/Raku/docker/actions/workflows/test-docker-image.yml)
+
 This Docker image includes Rakudo Star, which is a Raku compiler distribution that includes MoarVM
 virtual machine, Rakudo compiler, a suite of modules that users may find useful, and language documentation.
 
