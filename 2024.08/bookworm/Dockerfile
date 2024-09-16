@@ -20,6 +20,7 @@ RUN buildDeps=' \
     && export GNUPGHOME="$tmpdir/gnupg" \
     && mkdir $GNUPGHOME \
     && apt-get update \
+    && apt-get upgrade -y \
     && apt-get install -y --no-install-recommends $buildDeps \
     && rm -rf /var/lib/apt/lists/* \
     && mkdir ${tmpdir}/rakudo \
