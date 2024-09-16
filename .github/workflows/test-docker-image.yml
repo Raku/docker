@@ -18,7 +18,7 @@ jobs:
     - id: set-version
       run: |
         RAKU_VERSION=$(ls -A -d * | egrep '^[0-9]{4}.[0-9]{2}$')
-        echo "::set-output name=version::$RAKU_VERSION"
+        echo "version=$RAKU_VERSION" >> $GITHUB_OUTPUT
         echo "raku version: $RAKU_VERSION"
     - id: set-matrix
       run: |
@@ -34,7 +34,7 @@ jobs:
           }
           print join(",",@arr)
           ')
-        echo "::set-output name=matrix::[$LIST_DIR]"
+        echo "matrix=[$LIST_DIR]" >> $GITHUB_OUTPUT
         echo "base image list: [$LIST_DIR]"
   build:
     needs: setup
