@@ -1,0 +1,69 @@
+# Keep the Rakudo-Star release and it's docker image in sync
+
+name: Synchronize Docker image with the Rakudo-Star release
+
+on:
+  schedule: # 1 hour after https://github.com/rakudo/star/tree/master/.github/workflows/publish_rakudo-star_on_rakudo.org.yml
+    - cron:  '55 2 * * 1,4'
+  workflow_dispatch:
+
+jobs:
+  update_docker_image:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Get Rakudo-Star version from Rakudo.org
+      id: rkd_v_check
+      run: |
+        RKD_VERSION_TMP=$(curl -s https://rakudo.org/dl/star/ | jq -r '.[] | select((.latest==1) and (.url|test("-win-x86_64-")) and (.url|test("checksum|asc")|not)) | .url')
+        if [[ "$RKD_VERSION_TMP" =~ rakudo-star-([0-9]+.[0-9]+.?[0-9]?)-([0-9]+)- ]]; then
+          RKD_VERSION="${BASH_REMATCH[1]}"
+          RKD_REVISION="${BASH_REMATCH[2]}"
+          echo "RKD_VERSION=$RKD_VERSION" >> "$GITHUB_OUTPUT"
+          echo "RKD_REVISION=$RKD_REVISION" >> "$GITHUB_OUTPUT"
+
+        else
+          echo "Couldn't resolve the RAKUDO.ORG Star version"
+          exit
+        fi
+
+    - name: Checkout repository
+      if: ${{ steps.rkd_v_check.outputs.RKD_VERSION }}
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Compare RAKUDO.ORG release with this Docker repo
+      if: ${{ steps.rkd_v_check.outputs.RKD_VERSION }}
+      run: |
+        echo "run the \"Compare...\""
+        ls -lad [0-9]*
+        grep -i "rakudo_version=" */*/Dockerfile
+
+    - name: Update release directory and Docker files
+      if: ${{ steps.rkd_v_check.outputs.RKD_VERSION }}
+      run: |
+        echo "run the \"Compare...\""
+        LOC_DIR=$(ls -1 */*/Dockerfile | cut -d "/" -f1 | sort -u)
+        echo "\"LOC_DIR\" is \"$LOC_DIR\""
+        if [[ "$LOC_DIR" != "${{ steps.rkd_v_check.outputs.RKD_VERSION }}" ]]; then
+          git mv --verbose --force "$LOC_DIR" "${{ steps.rkd_v_check.outputs.RKD_VERSION }}"
+          sed -i -r s#rakudo_version\=\([0-9]\)\.+\$#rakudo_version=${{ steps.rkd_v_check.outputs.RKD_VERSION }}-${{ steps.rkd_v_check.outputs.RKD_REVISION }}# ${{ steps.rkd_v_check.outputs.RKD_VERSION }}/*/Dockerfile
+        fi
+
+    - name: List this Docker repo after changes
+      if: ${{ steps.rkd_v_check.outputs.RKD_VERSION }}
+      run: |
+        echo "run the \"Compare...\""
+        ls -lad ${{ steps.rkd_v_check.outputs.RKD_VERSION }}
+        grep -i "rakudo_version=" */*/Dockerfile
+
+    - name: Commit and push changes
+      if: ${{ steps.rkd_v_check.outputs.RKD_VERSION }}
+      uses: EndBug/add-and-commit@v9
+      with:
+        message: "Bump to ${{ steps.rkd_v_check.outputs.RKD_VERSION }} [skip workflow]"
+        tag: "${{ steps.rkd_v_check.outputs.RKD_VERSION }}"
+        push: "true"
+        tag_push: '--force'
+        
