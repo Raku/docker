@@ -1,15 +1,17 @@
-FROM buildpack-deps:bookworm-scm
-MAINTAINER Rob Hoelz
+FROM alpine:latest
 
-RUN groupadd -r raku && useradd -m -r -g raku raku
+RUN addgroup -S raku && adduser -S raku -G raku
 
-ARG rakudo_version=2024.12-01
+ARG rakudo_version=2025.01-01
 ENV rakudo_version=${rakudo_version}
 
 RUN buildDeps=' \
+        bash \
         gcc \
-        libc6-dev \
+        gnupg \
+        libc-dev \
         make \
+        perl \
     ' \
     \
     url="https://rakudo.org/dl/star/rakudo-star-${rakudo_version}.tar.gz" \
@@ -17,16 +19,15 @@ RUN buildDeps=' \
     pubkeyurl="https://rakudo.org/keys/rakudo_github_automation-${keyfp}.asc" \
     tmpdir="$(mktemp -d)" \
     && set -eux \
-    && export GNUPGHOME="$tmpdir/gnupg" \
+    && export GNUPGHOME="${tmpdir}/gnupg" \
     && mkdir $GNUPGHOME \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends $buildDeps \
-    && rm -rf /var/lib/apt/lists/* \
+    && apk add --no-cache --virtual .build-deps $buildDeps \
+    && apk add --no-cache readline \
     && mkdir ${tmpdir}/rakudo \
     \
-    && curl -fsSL ${url}.asc -o ${tmpdir}/rakudo.tar.gz.asc \
-    && curl -fsSL $url -o ${tmpdir}/rakudo.tar.gz \
-    && curl -fsSL $pubkeyurl -o ${tmpdir}/key.asc \
+    && wget ${url}.asc -O ${tmpdir}/rakudo.tar.gz.asc \
+    && wget $url -O ${tmpdir}/rakudo.tar.gz \
+    && wget $pubkeyurl -O ${tmpdir}/key.asc \
     \
     && gpg --batch --import ${tmpdir}/key.asc \
     && gpg --batch --export $keyfp > ${tmpdir}/${keyfp}.asc \
@@ -41,7 +42,7 @@ RUN buildDeps=' \
         && bash bin/rstar install -p /usr \
     ) \
     && rm -rf $tmpdir \
-    && apt-get purge -y --auto-remove $buildDeps
+    && apk del --no-network .build-deps
 
 ENV PATH=$PATH:/usr/share/perl6/core/bin:/usr/share/perl6/site/bin:/usr/share/perl6/vendor/bin
 
