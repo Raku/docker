@@ -9,8 +9,6 @@ Project homepage: https://rakudo.org
 
 GitHub repository: https://github.com/rakudo/star
 
-The Dockerfile responsible: https://github.com/raku/docker/tree/master/Dockerfile
-
 Raku Language Specification: https://github.com/raku/roast
 
 Raku Language Documentation: https://docs.raku.org/
